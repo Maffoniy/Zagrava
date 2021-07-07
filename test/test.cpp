@@ -12,13 +12,13 @@ int main()
     int* arr2 = new int[100];
     int* arr3 = new int[1000];
     int* arr4 = new int[10000000];
-    for (int i = 0; i < 10000000; i++) {
+    for (int i = 0; i < 10; i++) {
         arr1[i] = mersenne() % 100 + 1;
     }
-    for (int i = 0; i < 10000000; i++) {
+    for (int i = 0; i < 100; i++) {
         arr2[i] = mersenne() % 100 + 1;
     }
-    for (int i = 0; i < 10000000; i++) {
+    for (int i = 0; i < 1000; i++) {
         arr3[i] = mersenne() % 100 + 1;
     }
     for (int i = 0; i < 10000000; i++) {
@@ -27,7 +27,24 @@ int main()
     std::cout << "Hello World!\n";
 }
 void Buble(int* arr, int l) {
+    int x;
+    for (int i = 1; i < l; i++) /* зовнішній цикл */
+    {
+        for (int j = l - 1; j >= i; j--) /* внутрішній цикл */
+        {
+            if (arr[j] < arr[i - 1]) /* умова перебору */
+            {
+                /* міняємо місцями значення масиву*/
 
+                /* зберігаємо значення більшого елементу в змінну */
+                x = arr[j - 1];
+                /* переміщамо менший елемент на одну позицію вліво */
+                arr[j - 1] = arr[j];
+                /* більший елемент переміщаємо на одну позицію вправо */
+                arr[j] = x;
+            }
+        }
+    }
 }
 void Coice(int* arr, int l) {
    
