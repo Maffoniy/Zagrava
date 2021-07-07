@@ -3,85 +3,106 @@
 
 #include <iostream>
 #include <random>
-#include <math.h>
+#include <ctime>
 using namespace std;
 void swap(int* xp, int* yp)
 {
-    int temp = *xp;
-    *xp = *yp;
-    *yp = temp;
+	int temp = *xp;
+	*xp = *yp;
+	*yp = temp;
 }
-void Buble(vector<int>& arr, int l) {
-    int i, j;
-    for (i = 0; i < l - 1; i++)
+double Buble_time(int *arr, int l) {
+	clock_t t0 = clock();
+	int i, j;
+	for (i = 0; i < l - 1; i++)
 
-        // Last i elements are already in place
-        for (j = 0; j < l - i - 1; j++)
-            if (arr[j] > arr[j + 1])
-                swap(&arr[j], &arr[j + 1]);
+		// Last i elements are already in place
+		for (j = 0; j < l - i - 1; j++)
+			if (arr[j] > arr[j + 1])
+				swap(&arr[j], &arr[j + 1]);
+	clock_t t1 = clock();
+	return (double)(t1 - t0) / CLOCKS_PER_SEC;
 }
-void Coice(vector<int>& arr, int l) {
-    int  k, x;
-    for (int i = 0; i < l - 1; i++) /* зовнішній цикл */
-    {
-        k = i; /* ініціалізовуємо kter в позицію iter */
-        x = arr[i]; /* і зберігаємо значення елементу
-                           ** оскільки ми повинні ініціалізувати ці значення */
+double Choice_time(int* arr, int l) {
+	clock_t t0 = clock();
+	int  k, x;
+	for (int i = 0; i < l - 1; i++) /* зовнішній цикл */
+	{
+		k = i; /* ініціалізовуємо kter в позицію iter */
+		x = arr[i]; /* і зберігаємо значення елементу
+						   ** оскільки ми повинні ініціалізувати ці значення */
 
-        for (int j = i + 1; j < l; j++) /* внурішній цикл */
-        {
-            if (arr[j] < x) /* перевіряємо, чи значення елементу менше */
-            {/* якщо так, */
-                k = j; /* зберігаємо індекс найменшого елементу */
-                x = arr[k]; /* зберігаємо його значення */
-            }
-        }
+		for (int j = i + 1; j < l; j++) /* внурішній цикл */
+		{
+			if (arr[j] < x) /* перевіряємо, чи значення елементу менше */
+			{/* якщо так, */
+				k = j; /* зберігаємо індекс найменшого елементу */
+				x = arr[k]; /* зберігаємо його значення */
+			}
+		}
 
-        /* обмінюємо значення найменшоо елементу масиву з поточним */
-        /* поточний елемент (з позиції зовнішнього циклу)
-        ** в позицію найменшого */
-        arr[k] = arr[i];
-        /* найменший елемент в позицію поточного */
-        arr[i] = x;
-    }
+		/* обмінюємо значення найменшоо елементу масиву з поточним */
+		/* поточний елемент (з позиції зовнішнього циклу)
+		** в позицію найменшого */
+		arr[k] = arr[i];
+		/* найменший елемент в позицію поточного */
+		arr[i] = x;
+	}
+	clock_t t1 = clock();
+	return (double)(t1 - t0) / CLOCKS_PER_SEC;
 }
-void Pushin(vector<int>& arr, int l) {
-    for (int i = 1; i < l; i++)
-        for (int j = i; j > 0 && arr[j - 1] > arr[j]; j--) // пока j>0 и элемент j-1 > j, x-массив int
-            swap(arr[j - 1], arr[j]);        // меняем местами элементы j и j-1
+double Insert_time(int* arr, int l) {
+	clock_t t0 = clock();
+	for (int i = 1; i < l; i++)
+		for (int j = i; j > 0 && arr[j - 1] > arr[j]; j--) // пока j>0 и элемент j-1 > j, x-массив int
+			swap(arr[j - 1], arr[j]);        // меняем местами элементы j и j-1
+	clock_t t1 = clock();
+	return (double)(t1 - t0) / CLOCKS_PER_SEC;
 }
+
+
 
 int main()
 {
-    
-    random_device rd;
-    mt19937 mersenne(rd());
-    int times[4][3];
-    vector<int> arr(10000000);
-    vector<int> clone_arr(10000000);
-    for (int i = 0; i < 10000000; i++) {
-        arr[i] = mersenne() % 100 + 1;
-    }
-    int l = 10; 
-    while (l <= 10000000) {
-        for (int j = 0; j < l; j++) {
-            clone_arr[j] = arr[j];
-        }
-        cout << "procesing Buble " << l  << endl;
-        Buble(clone_arr, l);
-        for (int j = 0; j < l; j++) {
-            clone_arr[j] = arr[j];
-        }
-        cout << "procesing Coice " << l << endl;
-        Coice(clone_arr, l);
-        for (int j = 0; j < l; j++) {
-            clone_arr[j] = arr[j];
-        }
-        cout << "procesing Pushin " << l << endl;
-        Pushin(clone_arr, l);
-        l *= 10;
-    }
-    
+	const int NumZero = 5;
+	int Iter = 0;
+	double Buble_time_result[NumZero];
+	double Choice_time_result[NumZero];
+	double Insert_time_result[NumZero];
+	random_device rd;
+	int N = 10;
+	while(N<=pow(10, NumZero))
+	{
+		int* local_Darr = new int[N];
+		int* local_arrBub = new int[N];
+		int* local_arrChoi = new int[N];
+		int* local_arrIns = new int[N];
+		for (int i = 0; i < N; i++) {
+			int rand = rd() % 100 + 1;
+			local_arrChoi[i] = rand;
+			local_arrIns[i] = rand;
+			local_arrBub[i] = rand;
+			local_Darr[i] = rand;
+		}
+
+		Buble_time_result[Iter]=Buble_time(local_arrBub, N);
+		Choice_time_result[Iter]=Choice_time(local_arrChoi, N);
+		Insert_time_result[Iter++]=Insert_time(local_arrIns, N);
+
+		delete[] local_Darr;
+		delete[] local_arrBub;
+		delete[] local_arrChoi;
+		delete[] local_arrIns;
+		N *= 10;
+	}
+
+	cout << flush;
+
+	cout << "Size\t|Buble\t|Choice\t|In\t" << endl;
+
+	for (int i = 0; i < NumZero; i++) {
+		cout << pow(10, i + 1) << "\t|" << Buble_time_result[i] << "\t|" << Choice_time_result[i] << "\t |" << Insert_time_result[i] << "\t" << endl;
+	}
 }
 
 
