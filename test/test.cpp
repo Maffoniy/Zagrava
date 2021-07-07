@@ -3,51 +3,25 @@
 
 #include <iostream>
 #include <random>
+#include <math.h>
 using namespace std;
-int main()
+void swap(int* xp, int* yp)
 {
-    random_device rd;
-    mt19937 mersenne(rd());
-    int* arr1 = new int[10];
-    int* arr2 = new int[100];
-    int* arr3 = new int[1000];
-    int* arr4 = new int[10000000];
-    for (int i = 0; i < 10; i++) {
-        arr1[i] = mersenne() % 100 + 1;
-    }
-    for (int i = 0; i < 100; i++) {
-        arr2[i] = mersenne() % 100 + 1;
-    }
-    for (int i = 0; i < 1000; i++) {
-        arr3[i] = mersenne() % 100 + 1;
-    }
-    for (int i = 0; i < 10000000; i++) {
-        arr4[i] = mersenne() % 100 + 1;
-    }
-    std::cout << "Hello World!\n";
+    int temp = *xp;
+    *xp = *yp;
+    *yp = temp;
 }
-void Buble(int* arr, int l) {
-    int x;
-    for (int i = 1; i < l; i++) /* зовнішній цикл */
-    {
-        for (int j = l - 1; j >= i; j--) /* внутрішній цикл */
-        {
-            if (arr[j] < arr[i - 1]) /* умова перебору */
-            {
-                /* міняємо місцями значення масиву*/
+void Buble(vector<int>& arr, int l) {
+    int i, j;
+    for (i = 0; i < l - 1; i++)
 
-                /* зберігаємо значення більшого елементу в змінну */
-                x = arr[j - 1];
-                /* переміщамо менший елемент на одну позицію вліво */
-                arr[j - 1] = arr[j];
-                /* більший елемент переміщаємо на одну позицію вправо */
-                arr[j] = x;
-            }
-        }
-    }
+        // Last i elements are already in place
+        for (j = 0; j < l - i - 1; j++)
+            if (arr[j] > arr[j + 1])
+                swap(&arr[j], &arr[j + 1]);
 }
-void Coice(int* arr, int l) {
-    int k, x;
+void Coice(vector<int>& arr, int l) {
+    int  k, x;
     for (int i = 0; i < l - 1; i++) /* зовнішній цикл */
     {
         k = i; /* ініціалізовуємо kter в позицію iter */
@@ -71,11 +45,47 @@ void Coice(int* arr, int l) {
         arr[i] = x;
     }
 }
-void Pushin(int* arr, int l) {
+void Pushin(vector<int>& arr, int l) {
     for (int i = 1; i < l; i++)
         for (int j = i; j > 0 && arr[j - 1] > arr[j]; j--) // пока j>0 и элемент j-1 > j, x-массив int
             swap(arr[j - 1], arr[j]);        // меняем местами элементы j и j-1
 }
+
+int main()
+{
+    
+    random_device rd;
+    mt19937 mersenne(rd());
+    int times[4][3];
+    vector<int> arr(10000000);
+    vector<int> clone_arr(10000000);
+    for (int i = 0; i < 10000000; i++) {
+        arr[i] = mersenne() % 100 + 1;
+    }
+    int l = 10; 
+    while (l <= 10000000) {
+        for (int j = 0; j < l; j++) {
+            clone_arr[j] = arr[j];
+        }
+        cout << "procesing Buble " << l  << endl;
+        Buble(clone_arr, l);
+        for (int j = 0; j < l; j++) {
+            clone_arr[j] = arr[j];
+        }
+        cout << "procesing Coice " << l << endl;
+        Coice(clone_arr, l);
+        for (int j = 0; j < l; j++) {
+            clone_arr[j] = arr[j];
+        }
+        cout << "procesing Pushin " << l << endl;
+        Pushin(clone_arr, l);
+        l *= 10;
+    }
+    
+}
+
+
+
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
 // Отладка программы: F5 или меню "Отладка" > "Запустить отладку"
 
