@@ -13,11 +13,10 @@ void swap(int* xp, int* yp)
 }
 double Buble_time(int *arr, int l) {
 	clock_t t0 = clock();
-	int i, j;
-	for (i = 0; i < l - 1; i++)
+	for (int i = 0; i < l - 1; i++)
 
 		// Last i elements are already in place
-		for (j = 0; j < l - i - 1; j++)
+		for (int j = 0; j < l - i - 1; j++)
 			if (arr[j] > arr[j + 1])
 				swap(&arr[j], &arr[j + 1]);
 	clock_t t1 = clock();
@@ -50,6 +49,7 @@ double Choice_time(int* arr, int l) {
 	}
 	clock_t t1 = clock();
 	return (double)(t1 - t0) / CLOCKS_PER_SEC;
+	// сортування масиву 10^6 зайняло 1032.05 секунд на 2.9GHz процесорі i5-10400
 }
 double Insert_time(int* arr, int l) {
 	clock_t t0 = clock();
@@ -64,13 +64,13 @@ double Insert_time(int* arr, int l) {
 
 int main()
 {
-	const int NumZero = 5;
+	const int NumZero = 6;
 	int Iter = 0;
 	double Buble_time_result[NumZero];
 	double Choice_time_result[NumZero];
 	double Insert_time_result[NumZero];
 	random_device rd;
-	int N = 10;
+	int N = pow(10, NumZero);
 	while(N<=pow(10, NumZero))
 	{
 		int* local_Darr = new int[N];
