@@ -3,7 +3,8 @@
 
 #include <iostream>
 #include <random>
-#include <ctime>
+#include <chrono>
+using namespace std::chrono;
 using namespace std;
 void swap(int* xp, int* yp)
 {
@@ -11,19 +12,25 @@ void swap(int* xp, int* yp)
 	*xp = *yp;
 	*yp = temp;
 }
-double Buble_time(int *arr, int l) {
-	clock_t t0 = clock();
+void Buble(int* arr, int l) {
+	auto start = high_resolution_clock::now();
+	unsigned __int64 iterator = 0;
 	for (int i = 0; i < l - 1; i++)
 
 		// Last i elements are already in place
-		for (int j = 0; j < l - i - 1; j++)
-			if (arr[j] > arr[j + 1])
+		for (int j = 0; j < l - i - 1; j++) {
+			if (arr[j] > arr[j + 1]) {
+				iterator++;
 				swap(&arr[j], &arr[j + 1]);
-	clock_t t1 = clock();
-	return (double)(t1 - t0) / CLOCKS_PER_SEC;
+			}
+		}
+	auto stop = high_resolution_clock::now();
+	auto duration = duration_cast<microseconds>(stop - start);
+	cout << "\tBubble sort complited!" << endl << "Size: " << l << " | Result time: " << duration.count() << " | Iterarions: " << iterator << endl;
 }
-double Choice_time(int* arr, int l) {
-	clock_t t0 = clock();
+void Choice(int* arr, int l) {
+	auto start = high_resolution_clock::now();
+	unsigned __int64 iterator = 0;
 	int  k, x;
 	for (int i = 0; i < l - 1; i++) /* зовнішній цикл */
 	{
@@ -35,6 +42,7 @@ double Choice_time(int* arr, int l) {
 		{
 			if (arr[j] < x) /* перевіряємо, чи значення елементу менше */
 			{/* якщо так, */
+				iterator++;
 				k = j; /* зберігаємо індекс найменшого елементу */
 				x = arr[k]; /* зберігаємо його значення */
 			}
@@ -47,48 +55,77 @@ double Choice_time(int* arr, int l) {
 		/* найменший елемент в позицію поточного */
 		arr[i] = x;
 	}
-	clock_t t1 = clock();
-	return (double)(t1 - t0) / CLOCKS_PER_SEC;
-	// сортування масиву 10^6 зайняло 1032.05 секунд на 2.9GHz процесорі i5-10400
+	auto stop = high_resolution_clock::now();
+	auto duration = duration_cast<microseconds>(stop - start);
+	cout << "\tSelection sort complited!" << endl << "Size: " << l << " | Result time: " << duration.count() << " | Iterarions: " << iterator << endl;
 }
-double Insert_time(int* arr, int l) {
-	clock_t t0 = clock();
+void Insert(int* arr, int l) {
+	auto start = high_resolution_clock::now();
+	unsigned __int64 iterator = 0;
+
+
 	for (int i = 1; i < l; i++)
-		for (int j = i; j > 0 && arr[j - 1] > arr[j]; j--) // пока j>0 и элемент j-1 > j, x-массив int
+		for (int j = i; j > 0 && arr[j - 1] > arr[j]; j--) {
+			iterator++;// пока j>0 и элемент j-1 > j, x-массив int
 			swap(arr[j - 1], arr[j]);        // меняем местами элементы j и j-1
-	clock_t t1 = clock();
-	return (double)(t1 - t0) / CLOCKS_PER_SEC;
+		}
+
+
+	auto stop = high_resolution_clock::now();
+	auto duration = duration_cast<microseconds>(stop - start);
+	cout << "\tInsertion sort complited!" << endl << "Size: " << l << " | Result time: " << duration.count() << " | Iterarions: " << iterator << endl;
 }
 
 
 
 int main()
 {
-	const int NumZero = 6;
+	const int NumZero = 7;
+	int N = 10;
 	int Iter = 0;
-	double Buble_time_result[NumZero];
-	double Choice_time_result[NumZero];
-	double Insert_time_result[NumZero];
+
 	random_device rd;
-	int N = pow(10, NumZero);
-	while(N<=pow(10, NumZero))
+
+	while (N <= pow(10, NumZero))
 	{
 		int* local_Darr = new int[N];
 		int* local_arrBub = new int[N];
 		int* local_arrChoi = new int[N];
 		int* local_arrIns = new int[N];
+
 		for (int i = 0; i < N; i++) {
-			int rand = rd() % 100 + 1;
+			int rand = rd() % N + 1;
 			local_arrChoi[i] = rand;
 			local_arrIns[i] = rand;
 			local_arrBub[i] = rand;
 			local_Darr[i] = rand;
 		}
 
-		Buble_time_result[Iter]=Buble_time(local_arrBub, N);
-		Choice_time_result[Iter]=Choice_time(local_arrChoi, N);
-		Insert_time_result[Iter++]=Insert_time(local_arrIns, N);
+		Buble(local_arrBub, N);
+		Choice(local_arrChoi, N);
+		Insert(local_arrIns, N);
 
+		cout << "\n\tUnsorted array" << endl;
+		for (size_t i = 0; i < N; i++)
+		{
+			cout << local_Darr[i] << " ";
+		}
+		cout << "\n\tBubble sorted array" << endl;
+		for (size_t i = 0; i < N; i++)
+		{
+			cout << local_arrBub[i] << " ";
+		}
+		cout << "\n\tSelection sorted array" << endl;
+		for (size_t i = 0; i < N; i++)
+		{
+			cout << local_arrChoi[i] << " ";
+		}
+		cout << "\n\tInsertion sorted array" << endl;
+		for (size_t i = 0; i < N; i++)
+		{
+			cout << local_arrIns[i] << " ";
+		}
+		cout << endl << "==============================" << endl;
 		delete[] local_Darr;
 		delete[] local_arrBub;
 		delete[] local_arrChoi;
@@ -96,13 +133,7 @@ int main()
 		N *= 10;
 	}
 
-	cout << flush;
-
-	cout << "Size\t|Buble\t|Choice\t|In\t" << endl;
-
-	for (int i = 0; i < NumZero; i++) {
-		cout << pow(10, i + 1) << "\t|" << Buble_time_result[i] << "\t|" << Choice_time_result[i] << "\t |" << Insert_time_result[i] << "\t" << endl;
-	}
+	system("pause");
 }
 
 

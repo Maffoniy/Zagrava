@@ -1,3 +1,6 @@
 ﻿  test.cpp
-C:\Users\User\Documents\Oleksii Kuzmych\Zagrava\test\test.cpp(73,8): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных
+C:\Users\User\Documents\Oleksii Kuzmych\Zagrava\test\test.cpp(120,24): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\User\Documents\Oleksii Kuzmych\Zagrava\test\test.cpp(125,24): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\User\Documents\Oleksii Kuzmych\Zagrava\test\test.cpp(130,24): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\User\Documents\Oleksii Kuzmych\Zagrava\test\test.cpp(135,24): warning C4018: <: несоответствие типов со знаком и без знака
   test.vcxproj -> C:\Users\User\Documents\Oleksii Kuzmych\Zagrava\test\Debug\test.exe
