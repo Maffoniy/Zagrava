@@ -3,7 +3,9 @@
 
 #include <iostream>
 #include <random>
+#include <string>
 #include <chrono>
+#include <fstream>
 using namespace std::chrono;
 using namespace std;
 void swap(int* xp, int* yp)
@@ -11,6 +13,13 @@ void swap(int* xp, int* yp)
 	int temp = *xp;
 	*xp = *yp;
 	*yp = temp;
+}
+void Save(string s) {
+	ofstream out; 
+	out.open("arr.txt", std::ios::app);
+	out << s;
+	out.close();
+	cout << s;
 }
 void Buble(int* arr, int l) {
 	auto start = high_resolution_clock::now();
@@ -26,7 +35,10 @@ void Buble(int* arr, int l) {
 		}
 	auto stop = high_resolution_clock::now();
 	auto duration = duration_cast<microseconds>(stop - start);
-	cout << "\tBubble sort complited!" << endl << "Size: " << l << " | Result time: " << duration.count() << " | Iterarions: " << iterator << endl;
+
+	string s = "\tBubble sort complited!\nSize: " + to_string(l) + " | Result time: " + to_string(duration.count()) + " | Iterarions: " + to_string(iterator)+"\n";
+	Save(s);
+	//cout << "\tBubble sort complited!" << endl << "Size: " << l << " | Result time: " << duration.count() << " | Iterarions: " << iterator << endl;
 }
 void Choice(int* arr, int l) {
 	auto start = high_resolution_clock::now();
@@ -57,7 +69,10 @@ void Choice(int* arr, int l) {
 	}
 	auto stop = high_resolution_clock::now();
 	auto duration = duration_cast<microseconds>(stop - start);
-	cout << "\tSelection sort complited!" << endl << "Size: " << l << " | Result time: " << duration.count() << " | Iterarions: " << iterator << endl;
+	//cout << "\tSelection sort complited!" << endl << "Size: " << l << " | Result time: " << duration.count() << " | Iterarions: " << iterator << endl;
+
+	string s = "\tSelection sort complited!\nSize: " + to_string(l) + " | Result time: " + to_string(duration.count()) + " | Iterarions: " + to_string(iterator) + "\n";
+	Save(s);
 }
 void Insert(int* arr, int l) {
 	auto start = high_resolution_clock::now();
@@ -73,7 +88,10 @@ void Insert(int* arr, int l) {
 
 	auto stop = high_resolution_clock::now();
 	auto duration = duration_cast<microseconds>(stop - start);
-	cout << "\tInsertion sort complited!" << endl << "Size: " << l << " | Result time: " << duration.count() << " | Iterarions: " << iterator << endl;
+	//cout << "\tInsertion sort complited!" << endl << "Size: " << l << " | Result time: " << duration.count() << " | Iterarions: " << iterator << endl;
+
+	string s = "\tInsertion sort complited!\nSize: " + to_string(l) + " | Result time: " + to_string(duration.count()) + " | Iterarions: " + to_string(iterator) + "\n";
+	Save(s);
 }
 
 
@@ -100,7 +118,7 @@ int main()
 			local_arrBub[i] = rand;
 			local_Darr[i] = rand;
 		}
-
+		
 		Buble(local_arrBub, N);
 		Choice(local_arrChoi, N);
 		Insert(local_arrIns, N);

@@ -1,0 +1,30 @@
+	Bubble sort complited!
+Size: 10 | Result time: 8 | Iterarions: 29
+	Selection sort complited!
+Size: 10 | Result time: 0 | Iterarions: 12
+	Insertion sort complited!
+Size: 10 | Result time: 2 | Iterarions: 29
+	Bubble sort complited!
+Size: 100 | Result time: 45 | Iterarions: 2368
+	Selection sort complited!
+Size: 100 | Result time: 13 | Iterarions: 298
+	Insertion sort complited!
+Size: 100 | Result time: 175 | Iterarions: 2368
+	Bubble sort complited!
+Size: 1000 | Result time: 4480 | Iterarions: 241065
+	Selection sort complited!
+Size: 1000 | Result time: 1077 | Iterarions: 5411
+	Insertion sort complited!
+Size: 1000 | Result time: 17742 | Iterarions: 241065
+	Bubble sort complited!
+Size: 10000 | Result time: 503643 | Iterarions: 24853258
+	Selection sort complited!
+Size: 10000 | Result time: 103802 | Iterarions: 75238
+	Insertion sort complited!
+Size: 10000 | Result time: 1840316 | Iterarions: 24853258
+	Bubble sort complited!
+Size: 100000 | Result time: 51579227 | Iterarions: 2498471291
+	Selection sort complited!
+Size: 100000 | Result time: 10210198 | Iterarions: 979327
+	Insertion sort complited!
+Size: 100000 | Result time: 182960431 | Iterarions: 2498471291
