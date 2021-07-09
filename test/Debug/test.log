@@ -3,4 +3,5 @@ C:\Users\User\Documents\Oleksii Kuzmych\Zagrava\test\test.cpp(127,24): warning C
 C:\Users\User\Documents\Oleksii Kuzmych\Zagrava\test\test.cpp(132,24): warning C4018: <: несоответствие типов со знаком и без знака
 C:\Users\User\Documents\Oleksii Kuzmych\Zagrava\test\test.cpp(137,24): warning C4018: <: несоответствие типов со знаком и без знака
 C:\Users\User\Documents\Oleksii Kuzmych\Zagrava\test\test.cpp(142,24): warning C4018: <: несоответствие типов со знаком и без знака
+  LINK : не найден или не выполнена сборка C:\Users\User\Documents\Oleksii Kuzmych\Zagrava\test\Debug\test.exe при последней инкрементной компоновке; выполняется полная компоновка
   test.vcxproj -> C:\Users\User\Documents\Oleksii Kuzmych\Zagrava\test\Debug\test.exe

@@ -101,7 +101,7 @@ int main()
 	const int NumZero = 7;
 	int N = 10;
 	int Iter = 0;
-
+	remove("arr.txt");
 	random_device rd;
 
 	while (N <= pow(10, NumZero))
