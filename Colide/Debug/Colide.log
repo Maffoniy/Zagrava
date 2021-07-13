@@ -1,0 +1,4 @@
+﻿  Colide.cpp
+C:\Users\User\Documents\Oleksii Kuzmych\Zagrava\Colide\Colide.cpp(17,13): warning C4326: возвращаемый тип "main" должен быть "int", а не "void"
+C:\Users\User\Documents\Oleksii Kuzmych\Zagrava\Colide\Colide.cpp(84): warning C4717: main: рекурсия на всех путях выполнения, функция вызовет переполнение стека
+  Colide.vcxproj -> C:\Users\User\Documents\Oleksii Kuzmych\Zagrava\Colide\Debug\Colide.exe
